@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.blue {
+  color: #3b82f6;
+}
+
+.gray {
+  color: #95a5a6;
+}

@@ -3,83 +3,83 @@ import React, { useState } from "react";
 const itemTypeRarityValues = [
   {
     TwoHand: {
-      Junk: 15,
-      Poor: 22,
-      Common: 30,
-      Uncommon: 45,
-      Rare: 60,
-      Epic: 90,
-      Legendary: 120,
-      Unique: 175,
+      Junk: { value: 15, color: "text-gray-400" },
+      Poor: { value: 22, color: "text-gray-600" },
+      Common: { value: 30, color: "text-gray-900" },
+      Uncommon: { value: 45, color: "text-green-400" },
+      Rare: { value: 60, color: "text-blue-300" },
+      Epic: { value: 90, color: "text-purple-400" },
+      Legendary: { value: 120, color: "text-yellow-400" },
+      Unique: { value: 175, color: "text-amber-400" },
     },
   },
   {
     OneHandMain: {
-      Junk: 9,
-      Poor: 13,
-      Common: 18,
-      Uncommon: 27,
-      Rare: 36,
-      Epic: 54,
-      Legendary: 72,
-      Unique: 125,
+      Junk: { value: 9, color: "text-gray-400" },
+      Poor: { value: 13, color: "text-gray-600" },
+      Common: { value: 18, color: "text-gray-900" },
+      Uncommon: { value: 27, color: "text-green-400" },
+      Rare: { value: 36, color: "text-blue-300" },
+      Epic: { value: 54, color: "text-purple-400" },
+      Legendary: { value: 72, color: "text-yellow-400" },
+      Unique: { value: 125, color: "text-amber-400" },
     },
   },
   {
     OneHandOff: {
-      Junk: 7,
-      Poor: 10,
-      Common: 14,
-      Uncommon: 21,
-      Rare: 28,
-      Epic: 42,
-      Legendary: 56,
-      Unique: 100,
+      Junk: { value: 7, color: "text-gray-400" },
+      Poor: { value: 10, color: "text-gray-600" },
+      Common: { value: 14, color: "text-gray-900" },
+      Uncommon: { value: 21, color: "text-green-400" },
+      Rare: { value: 28, color: "text-blue-300" },
+      Epic: { value: 42, color: "text-purple-400" },
+      Legendary: { value: 56, color: "text-yellow-400" },
+      Unique: { value: 100, color: "text-amber-400" },
     },
   },
   {
     HandHeadFeet: {
-      Junk: 4,
-      Poor: 6,
-      Common: 8,
-      Uncommon: 12,
-      Rare: 16,
-      Epic: 24,
-      Legendary: 32,
-      Unique: 40,
+      Junk: { value: 4, color: "text-gray-400" },
+      Poor: { value: 6, color: "text-gray-600" },
+      Common: { value: 8, color: "text-gray-900" },
+      Uncommon: { value: 12, color: "text-green-400" },
+      Rare: { value: 16, color: "text-blue-300" },
+      Epic: { value: 24, color: "text-purple-400" },
+      Legendary: { value: 32, color: "text-yellow-400" },
+      Unique: { value: 40, color: "text-amber-400" },
     },
   },
   {
     ChestLegBack: {
-      Junk: 5,
-      Poor: 7,
-      Common: 10,
-      Uncommon: 15,
-      Rare: 20,
-      Epic: 30,
-      Legendary: 40,
-      Unique: 50,
+      Junk: { value: 5, color: "text-gray-400" },
+      Poor: { value: 7, color: "text-gray-600" },
+      Common: { value: 10, color: "text-gray-900" },
+      Uncommon: { value: 15, color: "text-green-400" },
+      Rare: { value: 20, color: "text-blue-300" },
+      Epic: { value: 30, color: "text-purple-400" },
+      Legendary: { value: 40, color: "text-yellow-400" },
+      Unique: { value: 50, color: "text-amber-400" },
     },
   },
   {
     Accessories: {
-      Uncommon: 9,
-      Rare: 12,
-      Epic: 18,
-      Legendary: 24,
-      Unique: 30,
+      Uncommon: { value: 9, color: "text-green-400" },
+      Rare: { value: 12, color: "text-blue-300" },
+      Epic: { value: 18, color: "text-purple-400" },
+      Legendary: { value: 24, color: "text-yellow-400" },
+      Unique: { value: 30, color: "text-amber-400" },
     },
   },
   {
     Utilities: {
-      Junk: 2,
-      Poor: 3,
-      Common: 4,
-      Uncommon: 6,
-      Rare: 8,
-      Epic: 12,
-      Legendary: 16,
-      Unique: 20,
+      Junk: { value: 2, color: "text-gray-400" },
+      Poor: { value: 3, color: "text-gray-600" },
+      Common: { value: 4, color: "text-gray-900" },
+      Uncommon: { value: 6, color: "text-green-400" },
+      Rare: { value: 8, color: "text-blue-300" },
+      Epic: { value: 12, color: "text-purple-400" },
+      Legendary: { value: 16, color: "text-yellow-400" },
+      Unique: { value: 20, color: "text-amber-400" },
     },
   },
 ];
@@ -88,7 +88,7 @@ export default function Home() {
   const [rarityQuantities, setRarityQuantities] = useState({});
   const [totalScore, setTotalScore] = useState(0);
 
-  const handleQuantityChange = (itemType: any, rarity: any, quantity: any) => {
+  const handleQuantityChange = (itemType, rarity, quantity) => {
     const updatedQuantities = {
       ...rarityQuantities,
       [itemType]: {
@@ -99,47 +99,55 @@ export default function Home() {
     setRarityQuantities(updatedQuantities);
   };
 
-  type ItemTypeRarityValues = {
-    [itemType: string]: { [rarity: string]: number };
-  };
-  type RarityQuantities = { [itemType: string]: { [rarity: string]: number } };
-
   const calculateTotalScore = () => {
-    let totalScore: number = 0;
+    let totalScore = 0;
 
-    itemTypeRarityValues.forEach((itemTypeObj: ItemTypeRarityValues) => {
+    itemTypeRarityValues.forEach((itemTypeObj) => {
       const itemType = Object.keys(itemTypeObj)[0];
       const rarities = itemTypeObj[itemType];
 
-      let itemScore: number = 0;
+      let itemScore = 0;
 
-      Object.entries(rarities).forEach(([rarity, value]: [string, number]) => {
-        const quantity: number = rarityQuantities[itemType]?.[rarity] || 0;
+      Object.entries(rarities).forEach(([rarity, { value }]) => {
+        const quantity = rarityQuantities[itemType]?.[rarity] || 0;
         itemScore += quantity * value;
       });
 
       totalScore += itemScore;
     });
 
-    setTotalScore(totalScore); // Assuming setTotalScore is properly defined elsewhere
+    setTotalScore(totalScore);
   };
 
   const resetScore = () => {
     setTotalScore(0);
+    setRarityQuantities({});
+  };
+
+  const handleDecrement = (itemType, rarity) => {
+    const currentQuantity = rarityQuantities[itemType]?.[rarity] || 0;
+    const newQuantity = Math.max(0, currentQuantity - 1);
+    handleQuantityChange(itemType, rarity, newQuantity);
+  };
+
+  const handleIncrement = (itemType, rarity) => {
+    const currentQuantity = rarityQuantities[itemType]?.[rarity] || 0;
+    const newQuantity = currentQuantity + 1;
+    handleQuantityChange(itemType, rarity, newQuantity);
   };
 
   return (
     <main className="flex flex-col gap-2 items-center justify-center h-screen w-full">
-      <p>Dark and Darker Gear Calculator</p>
-      <div className="flex w-full items-center justify-center">
+      <p className="text-4xl">Dark and Darker Gear Calculator</p>
+      <div className="flex items-center justify-center border-black border-2 p-10 shadow-xl rounded-md w-3/4">
         {itemTypeRarityValues.map((itemTypeObj, index) => {
           const itemType = Object.keys(itemTypeObj)[0];
           const rarities = itemTypeObj[itemType];
 
           return (
-            <div key={index}>
+            <div key={index} className="w-full">
               <h2>{itemType}</h2>
-              <table>
+              <table className="w-full">
                 <thead>
                   <tr>
                     <th>Rarity</th>
@@ -147,26 +155,32 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(rarities).map(([rarity, value]) => (
-                    <tr key={rarity}>
-                      <td>{rarity}</td>
-                      <td>
-                        <input
-                          className="w-1/2"
-                          type="number"
-                          min="0"
-                          value={rarityQuantities[itemType]?.[rarity] || 0}
-                          onChange={(e) =>
-                            handleQuantityChange(
-                              itemType,
-                              rarity,
-                              parseInt(e.target.value)
-                            )
-                          }
-                        />
-                      </td>
-                    </tr>
-                  ))}
+                  {Object.entries(rarities).map(
+                    ([rarity, { value, color }]) => (
+                      <tr key={rarity} className="flex justify-between">
+                        <td>
+                          <p className={`${color}`}>{rarity}</p>
+                        </td>
+                        <td className="flex gap-2 items-center">
+                          <button
+                            className="w-10 h-10 bg-gray-400 rounded-md shadow-xl hover:bg-gray-200 transition-all duration-200"
+                            onClick={() => handleDecrement(itemType, rarity)}
+                          >
+                            -
+                          </button>
+                          <span className="text-2xl">
+                            {rarityQuantities[itemType]?.[rarity] || 0}
+                          </span>
+                          <button
+                            className="w-10 h-10 bg-gray-400 rounded-md shadow-xl hover:bg-gray-200 transition-all duration-200"
+                            onClick={() => handleIncrement(itemType, rarity)}
+                          >
+                            +
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  )}
                 </tbody>
               </table>
             </div>
