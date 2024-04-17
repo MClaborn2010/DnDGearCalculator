@@ -124,6 +124,10 @@ export default function Home() {
     setTotalScore(totalScore); // Assuming setTotalScore is properly defined elsewhere
   };
 
+  const resetScore = () => {
+    setTotalScore(0);
+  };
+
   return (
     <main className="flex flex-col gap-2 items-center justify-center h-screen w-full">
       <p>Dark and Darker Gear Calculator</p>
@@ -169,8 +173,13 @@ export default function Home() {
           );
         })}
       </div>
-      <div>
-        <button onClick={calculateTotalScore}>Calculate Total Score</button>
+      <div className="flex flex-col gap-4">
+        <button onClick={calculateTotalScore} className="text-4xl">
+          Calculate Total Score
+        </button>
+        <button className="text-4xl" onClick={() => resetScore()}>
+          Reset Score
+        </button>
       </div>
       <div>
         <p className="text-8xl text-green-400">{totalScore}</p>
