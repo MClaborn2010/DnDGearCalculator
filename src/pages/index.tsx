@@ -1,5 +1,18 @@
 import React, { useState } from "react";
 
+// Define types for rarity object
+type Rarity = {
+  value: number;
+  color: string;
+};
+
+// Define type for item type rarity values
+type ItemTypeRarityValues = {
+  [itemType: string]: {
+    [rarity: string]: Rarity;
+  };
+}[];
+
 const itemTypeRarityValues = [
   {
     TwoHand: {
@@ -85,10 +98,16 @@ const itemTypeRarityValues = [
 ];
 
 export default function Home() {
-  const [rarityQuantities, setRarityQuantities] = useState({});
+  const [rarityQuantities, setRarityQuantities] = useState<{
+    [key: string]: any;
+  }>({});
   const [totalScore, setTotalScore] = useState(0);
 
-  const handleQuantityChange = (itemType, rarity, quantity) => {
+  const handleQuantityChange = (
+    itemType: string,
+    rarity: string,
+    quantity: number
+  ) => {
     const updatedQuantities = {
       ...rarityQuantities,
       [itemType]: {
@@ -108,10 +127,12 @@ export default function Home() {
 
       let itemScore = 0;
 
-      Object.entries(rarities).forEach(([rarity, { value }]) => {
-        const quantity = rarityQuantities[itemType]?.[rarity] || 0;
-        itemScore += quantity * value;
-      });
+      Object.entries(rarities).forEach(
+        ([rarity, { value }]: [string, { value: number }]) => {
+          const quantity = rarityQuantities[itemType]?.[rarity] || 0;
+          itemScore += quantity * value;
+        }
+      );
 
       totalScore += itemScore;
     });
@@ -124,13 +145,13 @@ export default function Home() {
     setRarityQuantities({});
   };
 
-  const handleDecrement = (itemType, rarity) => {
+  const handleDecrement = (itemType: string, rarity: string) => {
     const currentQuantity = rarityQuantities[itemType]?.[rarity] || 0;
     const newQuantity = Math.max(0, currentQuantity - 1);
     handleQuantityChange(itemType, rarity, newQuantity);
   };
 
-  const handleIncrement = (itemType, rarity) => {
+  const handleIncrement = (itemType: string, rarity: string) => {
     const currentQuantity = rarityQuantities[itemType]?.[rarity] || 0;
     const newQuantity = currentQuantity + 1;
     handleQuantityChange(itemType, rarity, newQuantity);
@@ -156,7 +177,7 @@ export default function Home() {
                 </thead>
                 <tbody>
                   {Object.entries(rarities).map(
-                    ([rarity, { value, color }]) => (
+                    ([rarity, { value, color }]: [string, Rarity]) => (
                       <tr key={rarity} className="flex justify-between">
                         <td>
                           <p className={`${color}`}>{rarity}</p>
