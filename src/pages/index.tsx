@@ -209,7 +209,10 @@ export default function Home() {
         })}
       </div>
       <div className="flex flex-col gap-4">
-        <button onClick={calculateTotalScore} className="text-4xl">
+        <button
+          onClick={calculateTotalScore}
+          className="text-4xl bg-black p-8 rounded-md shadow-xl text-white hover:scale-[1.01] transition-all duration-200"
+        >
           Calculate Total Score
         </button>
         <button className="text-4xl" onClick={() => resetScore()}>
