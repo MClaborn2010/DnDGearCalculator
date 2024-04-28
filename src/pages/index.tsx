@@ -160,6 +160,10 @@ export default function Home() {
   return (
     <main className="flex flex-col gap-2 items-center justify-center h-screen w-full">
       <p className="text-4xl">Dark and Darker Gear Calculator</p>
+      <div>
+        <p>Bracket 1: 0-300</p>
+        <p>Bracket 2: 300+</p>
+      </div>
       <div className="flex items-center justify-center border-black border-2 p-10 shadow-xl rounded-md w-3/4">
         {itemTypeRarityValues.map((itemTypeObj, index) => {
           const itemType = Object.keys(itemTypeObj)[0];
